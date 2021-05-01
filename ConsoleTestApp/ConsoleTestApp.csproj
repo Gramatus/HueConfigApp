@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="AppModel\Bridge %28GramatusServer%27s conflicted copy 2020-05-23%29.cs" />
+    <Compile Remove="AppModel\MyTransitionRules %28GramatusServer%27s conflicted copy 2020-05-21%29.cs" />
+    <Compile Remove="AppModel\TransitionRule %28GramatusServer%27s conflicted copy 2020-05-23%29.cs" />
+    <Compile Remove="Helpers\Csv\FileData %28GramatusServer%27s conflicted copy 2020-05-21%29.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Net.Http.Json" Version="5.0.0-preview.4.20251.6" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HueConfigApp", "HueConfigApp\HueConfigApp.csproj", "{1B258F8A-6797-472D-BC63-D93F3CC5EBA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTestApp", "ConsoleTestApp\ConsoleTestApp.csproj", "{3A306DD3-8EF1-4540-88BF-9A9F61248C86}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1B258F8A-6797-472D-BC63-D93F3CC5EBA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B258F8A-6797-472D-BC63-D93F3CC5EBA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B258F8A-6797-472D-BC63-D93F3CC5EBA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B258F8A-6797-472D-BC63-D93F3CC5EBA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A306DD3-8EF1-4540-88BF-9A9F61248C86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A306DD3-8EF1-4540-88BF-9A9F61248C86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A306DD3-8EF1-4540-88BF-9A9F61248C86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A306DD3-8EF1-4540-88BF-9A9F61248C86}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CDFD8490-E895-4BC8-A142-935E3A0C7178}
+	EndGlobalSection
+EndGlobal
