@@ -1,4 +1,4 @@
-using ConsoleTestApp.ApiObjects.Lights.State;
+﻿using ConsoleTestApp.ApiObjects.Lights.State;
 using ConsoleTestApp.ApiObjects.Rules;
 using ConsoleTestApp.ApiObjects.Rules.Actions;
 using ConsoleTestApp.ApiObjects.Scenes;
@@ -33,10 +33,8 @@ namespace ConsoleTestApp {
     }
     #endregion
     #region Main
-    static void Main(string[] args) {
-      string logFolder = @"C:\Temp\HueLogs\";
-      hueBridge = new Bridge(RESTfulRoot, logFolder);
-      hueBridge.Initialize();
+    static void Main() {
+      string logFolder = @"C:\Dev\HueConfigApp\ConsoleTestApp\Logs\";
 
       #region Setup parameteres
       bool printInfo = false;
@@ -44,6 +42,7 @@ namespace ConsoleTestApp {
       bool pauseBeforeUpdating = false;
       bool pauseBeforeDeleting = true;
       bool deleteElementsBeforeUpdatingBridge = false;
+      bool createJsonOnlyOnSave = true;
 
       string backupFolder = @"C:\Users\Torgeir\Dropbox\Konfigurasjonsfiler\Backup\";
       string configFolder = @"C:\Users\Torgeir\Dropbox\Konfigurasjonsfiler\HueConfig\";
@@ -62,15 +61,20 @@ namespace ConsoleTestApp {
       // transitionRulesStartTimes.Add(DateTime.Now.AddMinutes(2).TimeOfDay);
       // transitionRulesStartTimes.Add(new TimeSpan(16, 0, 0));
       #endregion
+
+      hueBridge = new Bridge(RESTfulRoot, logFolder, createJsonOnlyOnSave);
+      hueBridge.Initialize();
+
       #region Select what to do
       bool doSomeBackups = false;
-      bool updateDimmers = true;
+      bool updateDimmers = false;
       bool updateTransitions = false;
+      bool updateTransitionScenesOnly = true;
       bool updateSwitchScenes = false;
       #endregion
       if (!doSomeBackups && !updateDimmers && !updateTransitions && !updateSwitchScenes && !updateTransitionScenesOnly) Console.WriteLine("No actions activated, application must be changed to do something :)");
       #region Cleanup tasks
-      // If in need of cleaning up, simply add lines to the file mentioned below where each line is 
+      // If in need of cleaning up, simply add lines to the file mentioned below where each line is
       var cleanupFile = configFolder + "cleanup.txt";
       if (!System.IO.File.Exists(cleanupFile)) System.IO.File.WriteAllText(cleanupFile, "");
       foreach (var line in System.IO.File.ReadAllLines(cleanupFile)) {
@@ -108,7 +112,7 @@ namespace ConsoleTestApp {
       }
       if (updateTransitionScenesOnly) {
         var transitionRules = AppModel.TransitionRules.TransitionRuleList.GetTransitionRules(configFolder, transitionRulesDefsFile, transitionRulesDefsStatesFile, standardWeekDays);
-        transitionRules.SaveToBridge(printInfo, pauseBeforeUpdating, deleteFirst: deleteElementsBeforeUpdatingBridge, scenesOnly: true);
+        transitionRules.SaveToBridge(printInfo, pauseBeforeUpdating, deleteFirst: deleteElementsBeforeUpdatingBridge && !createJsonOnlyOnSave, scenesOnly: true, createJsonOnlyOnSave: createJsonOnlyOnSave);
       }
       if (updateSwitchScenes) {
         var sceneDefs = SceneDefinitionList.GetFromDataFiles(configFolder, updateSwitchSceneDefsFile, updateSwitchSceneDefsStatesFile, "ID", Program.hueBridge.PrettyPrintIntProps, null);

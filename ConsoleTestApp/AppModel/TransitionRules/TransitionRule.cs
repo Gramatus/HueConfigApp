@@ -1,4 +1,4 @@
-using ConsoleTestApp.ApiObjects.Groups;
+﻿using ConsoleTestApp.ApiObjects.Groups;
 using ConsoleTestApp.ApiObjects.Lights;
 using ConsoleTestApp.ApiObjects.Schedules;
 using ConsoleTestApp.ApiObjects.Sensors;
@@ -62,7 +62,7 @@ namespace ConsoleTestApp.AppModel.TransitionRules {
     #endregion
     #region ### Instance methods
     #region CreateRulesFromSceneDefs
-    private void CreateRulesFromSceneDefs(bool stayAtFinalState, bool printInfo, bool pauseBeforeUpdating) {
+    private void CreateRulesFromSceneDefs(bool stayAtFinalState, bool printInfo, bool pauseBeforeUpdating, bool createJsonOnlyOnSave = false) {
       // if we have no scene ordered as #1, then the config is wrong...
       // var startScene = this._defs.Values.FirstOrDefault(i => i.Order == 1);
       // if (startScene == null) throw new ArgumentException("There should be a scene definition with order #1 in the file!");
@@ -141,12 +141,12 @@ namespace ConsoleTestApp.AppModel.TransitionRules {
     }*/
     #endregion
     #region SaveToBridge
-    public void SaveToBridge(bool stayAtFinalState, bool printInfo, bool pauseBeforeUpdating, bool deleteFirst, bool scenesOnly = false) {
+    public void SaveToBridge(bool stayAtFinalState, bool printInfo, bool pauseBeforeUpdating, bool deleteFirst, bool scenesOnly = false, bool createJsonOnlyOnSave = false) {
       if (deleteFirst) Program.hueBridge.CleanUpResourceGroup(_commonDescription, false, true);
 
       // Note: scenes are updated as part of creating the transition...
       // this.UpdateScenes(printInfo, pauseBeforeUpdating);
-      CreateRulesFromSceneDefs(stayAtFinalState, printInfo, pauseBeforeUpdating);
+      CreateRulesFromSceneDefs(stayAtFinalState, printInfo, pauseBeforeUpdating, createJsonOnlyOnSave);
 
       if (scenesOnly) return;
       sceneNumberTracker.CreateIfMissingHijackIfExisting(printInfo, pauseBeforeUpdating);

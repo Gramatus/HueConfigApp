@@ -1,4 +1,4 @@
-﻿using ConsoleTestApp.ApiObjects;
+using ConsoleTestApp.ApiObjects;
 using ConsoleTestApp.ApiObjects.Config;
 using ConsoleTestApp.ApiObjects.Groups;
 using ConsoleTestApp.ApiObjects.Lights;
@@ -19,6 +19,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ConsoleTestApp.AppModel {
@@ -43,12 +44,14 @@ namespace ConsoleTestApp.AppModel {
     public Dictionary<string, Alarm> Alarms { get; private set; }
     public readonly HttpClient client = new HttpClient();
     public Dictionary<string, WhitelistEntry> ConnectedApps { get { return config.ConnectedApps; } }
+    private readonly bool _createJsonOnlyOnSave;
     #endregion
     #region ### Constructor
-    public Bridge(string RESTfulRoot, string logDir) {
+    public Bridge(string RESTfulRoot, string logDir, bool createJsonOnlyOnSave = false) {
       this.RESTfulRoot = RESTfulRoot;
       var logDirBase = new System.IO.DirectoryInfo(logDir);
       this._logDir = logDirBase.CreateSubdirectory(DateTime.Now.ToString("yyMMdd")).CreateSubdirectory(DateTime.Now.ToString("HHmm"));
+      this._createJsonOnlyOnSave = createJsonOnlyOnSave;
     }
     #endregion
     #region ### Functionality
@@ -351,14 +354,16 @@ namespace ConsoleTestApp.AppModel {
     public string AddToBridge<T>(string resourceAddress, T data, bool printJson, bool printResponse, bool pauseAfterPrintingJson) where T : IApiObject {
       if (data.Name.StartsWith("Performing")) Console.WriteLine("POST: " + data.Name);
       else Console.WriteLine("POST: Adding to " + resourceAddress + " (" + data.Name + ")");
-      PrintJson(data, ActionMethod.POST, resourceAddress, pauseAfterPrintingJson, printJson);
+      this.PrintJson(data, ActionMethod.POST, resourceAddress, pauseAfterPrintingJson, printJson);
       var Json = JsonContent.Create(data);
       var response = AddToBridgeAsync(resourceAddress, Json);
+      if (this._createJsonOnlyOnSave) return "";
       return HandleResponse(response.Result, ActionMethod.POST, resourceAddress, printResponse, true);
       // var responseMessage = response.Result.Content.ReadAsStringAsync().Result;
       // return responseMessage;
     }
     private async Task<HttpResponseMessage> AddToBridgeAsync(string ResourceAdress, JsonContent Json) {
+      if (this._createJsonOnlyOnSave) return null;
       string uriToWrite = RESTfulRoot + ResourceAdress;
       return await client.SendAsync(new HttpRequestMessage(HttpMethod.Post, uriToWrite) { Content = Json });
     }
@@ -374,9 +379,11 @@ namespace ConsoleTestApp.AppModel {
       this.PrintJson(data, ActionMethod.PUT, resourceAdress, pauseAfterPrintingJson, printJson);
       var Json = JsonContent.Create(data);
       var response = this.UpdateBridgeAsync(resourceAdress, Json);
+      if (this._createJsonOnlyOnSave) return "";
       return this.HandleResponse(response.Result, ActionMethod.PUT, resourceAdress, printResponse, false);
     }
     private async Task<HttpResponseMessage> UpdateBridgeAsync(string ResourceAdress, JsonContent Json) {
+      if (this._createJsonOnlyOnSave) return null;
       string uriToWrite = RESTfulRoot + ResourceAdress;
       return await client.SendAsync(new HttpRequestMessage(HttpMethod.Put, uriToWrite) { Content = Json });
     }
@@ -389,7 +396,7 @@ namespace ConsoleTestApp.AppModel {
     public T GetFromBridge<T>(string ResourceAdress) {
       // var result = GetFromBridgeAsync<T>(ResourceAdress);
       var json = GetJsonFromBridge(ResourceAdress);
-      System.IO.File.AppendAllText(this._logDir.FullName + "\\GET" + ResourceAdress.Replace('/', '_').TrimEnd('_') + ".log", this.Prettify(json));
+      File.AppendAllText(this._logDir.FullName + "\\GET" + ResourceAdress.Replace('/', '_').TrimEnd('_') + ".log", this.Prettify(json));
       var result = JsonSerializer.Deserialize<T>(json);
       return result;
     }
@@ -417,19 +424,25 @@ namespace ConsoleTestApp.AppModel {
       string resourceAddress = "/" + api.ToString() + "/";
       foreach (var id in IDs) {
         var response = this.DeleteFromBridgeAsync(resourceAddress, id);
+        if (this._createJsonOnlyOnSave) return;
         this.HandleResponse(response.Result, ActionMethod.DELETE, resourceAddress, false, false, logAndReturn: true);
       }
     }
     private async Task<HttpResponseMessage> DeleteFromBridgeAsync(string resourceAddress, string resourceID) {
+      if (this._createJsonOnlyOnSave) {
+        string JsonThatWillBeSent = "### Sending (DELETE) (to " + resourceAddress + "): ###" + Environment.NewLine;
+        File.AppendAllText(this._logDir.FullName + "\\DELETE" + resourceAddress.Replace('/', '_').TrimEnd('_') + ".log", JsonThatWillBeSent);
+        return null;
+      }
       string uriToWrite = RESTfulRoot + resourceAddress + resourceID;
       return await client.SendAsync(new HttpRequestMessage(HttpMethod.Delete, uriToWrite));
     }
     #endregion
     #region PrintJson
-    private void PrintJson<T>(T data, ActionMethod method, string resouceAddress, bool pauseAfterPrintingJson, bool PrintToScreen) {
+    private void PrintJson<T>(T data, ActionMethod method, string resourceAddress, bool pauseAfterPrintingJson, bool PrintToScreen) where T : IApiObject {
       var JsonThatWillBeSent = JsonSerializer.Serialize(data, new JsonSerializerOptions() { WriteIndented = true });
-      JsonThatWillBeSent = "### Sending (" + method.ToString() + ") the following Json (to " + resouceAddress + "): ###" + Environment.NewLine + JsonThatWillBeSent;
-      System.IO.File.AppendAllText(this._logDir.FullName + "\\" + method.ToString() + resouceAddress.Replace('/', '_').TrimEnd('_') + ".log", JsonThatWillBeSent);
+      JsonThatWillBeSent = "### Sending (" + method.ToString() + ") the following Json (to " + resourceAddress + "): ###" + Environment.NewLine + JsonThatWillBeSent;
+      File.AppendAllText(this._logDir.FullName + "\\" + method.ToString() + (this._createJsonOnlyOnSave ? Regex.Replace(data.Name, "[^a-zA-Z0-9_]+", "_", RegexOptions.Compiled) : resourceAddress.Replace('/', '_').TrimEnd('_')) + ".log", JsonThatWillBeSent);
       if (PrintToScreen) Console.WriteLine(JsonThatWillBeSent);
       if (pauseAfterPrintingJson) {
         Console.Write("Press any key to contiune...");
