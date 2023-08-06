@@ -1,4 +1,4 @@
-﻿using ConsoleTestApp.ApiObjects.Groups;
+using ConsoleTestApp.ApiObjects.Groups;
 using ConsoleTestApp.ApiObjects.Lights;
 using ConsoleTestApp.ApiObjects.Schedules;
 using ConsoleTestApp.ApiObjects.Sensors;
@@ -141,13 +141,14 @@ namespace ConsoleTestApp.AppModel.TransitionRules {
     }*/
     #endregion
     #region SaveToBridge
-    public void SaveToBridge(bool stayAtFinalState, bool printInfo, bool pauseBeforeUpdating, bool deleteFirst) {
+    public void SaveToBridge(bool stayAtFinalState, bool printInfo, bool pauseBeforeUpdating, bool deleteFirst, bool scenesOnly = false) {
       if (deleteFirst) Program.hueBridge.CleanUpResourceGroup(_commonDescription, false, true);
 
       // Note: scenes are updated as part of creating the transition...
       // this.UpdateScenes(printInfo, pauseBeforeUpdating);
       CreateRulesFromSceneDefs(stayAtFinalState, printInfo, pauseBeforeUpdating);
 
+      if (scenesOnly) return;
       sceneNumberTracker.CreateIfMissingHijackIfExisting(printInfo, pauseBeforeUpdating);
 
       foreach (var group in groups) {

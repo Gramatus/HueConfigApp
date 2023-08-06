@@ -1,4 +1,4 @@
-﻿using ConsoleTestApp.ApiObjects.Schedules;
+using ConsoleTestApp.ApiObjects.Schedules;
 using ConsoleTestApp.ApiObjects.Sensors;
 using ConsoleTestApp.ApiObjects.Sensors.State;
 using ConsoleTestApp.AppModel.Hardcoded;
@@ -21,10 +21,10 @@ namespace ConsoleTestApp.AppModel.TransitionRules {
     }
     #endregion
     #region SaveToBridge
-    public void SaveToBridge(bool printInfo, bool pauseBeforeUpdating, bool deleteFirst) {
+    public void SaveToBridge(bool printInfo, bool pauseBeforeUpdating, bool deleteFirst, bool scenesOnly = false) {
       foreach (var rule in this) {
         // TODO: Calculate if the rule should stay at it's final state (e.g. get that from config...)
-        rule.SaveToBridge(stayAtFinalState: true, printInfo, pauseBeforeUpdating, deleteFirst);
+        rule.SaveToBridge(stayAtFinalState: true, printInfo, pauseBeforeUpdating, deleteFirst, scenesOnly: scenesOnly);
       }
     }
     #endregion

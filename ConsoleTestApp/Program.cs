@@ -68,7 +68,7 @@ namespace ConsoleTestApp {
       bool updateTransitions = false;
       bool updateSwitchScenes = false;
       #endregion
-      if (!doSomeBackups && !updateDimmers && !updateTransitions && !updateSwitchScenes) Console.WriteLine("No actions activated, application must be changed to do something :)");
+      if (!doSomeBackups && !updateDimmers && !updateTransitions && !updateSwitchScenes && !updateTransitionScenesOnly) Console.WriteLine("No actions activated, application must be changed to do something :)");
       #region Cleanup tasks
       // If in need of cleaning up, simply add lines to the file mentioned below where each line is 
       var cleanupFile = configFolder + "cleanup.txt";
@@ -105,6 +105,10 @@ namespace ConsoleTestApp {
       if (updateTransitions) {
         var transitionRules = AppModel.TransitionRules.TransitionRuleList.GetTransitionRules(configFolder, transitionRulesDefsFile, transitionRulesDefsStatesFile, standardWeekDays);
         transitionRules.SaveToBridge(printInfo, pauseBeforeUpdating, deleteFirst: deleteElementsBeforeUpdatingBridge);
+      }
+      if (updateTransitionScenesOnly) {
+        var transitionRules = AppModel.TransitionRules.TransitionRuleList.GetTransitionRules(configFolder, transitionRulesDefsFile, transitionRulesDefsStatesFile, standardWeekDays);
+        transitionRules.SaveToBridge(printInfo, pauseBeforeUpdating, deleteFirst: deleteElementsBeforeUpdatingBridge, scenesOnly: true);
       }
       if (updateSwitchScenes) {
         var sceneDefs = SceneDefinitionList.GetFromDataFiles(configFolder, updateSwitchSceneDefsFile, updateSwitchSceneDefsStatesFile, "ID", Program.hueBridge.PrettyPrintIntProps, null);
