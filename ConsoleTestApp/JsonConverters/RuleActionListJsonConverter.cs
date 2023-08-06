@@ -53,6 +53,7 @@ namespace ConsoleTestApp.JsonConverters {
         else if (dataDict.ContainsKey("state")) action = new TriggerAlertAction();
         else if (dataDict.ContainsKey("alert")) action = new TriggerAlertAction();
         else if (dataDict.ContainsKey("storelightstate")) action = new RuleActionBase(); // This is not used by me, but by some entertainment setups. Just bypass by creating a RuleActionBase object.
+        else if (dataDict.ContainsKey("presence")) action = new RuleActionBase(); // This is not used by me. Just bypass by creating a RuleActionBase object.
         else if (dataDict.Count == 0) action = new RuleActionBase(); // This probably means something is "wrong" in the bridge, it might be caused e.g. by a group being deleted that was part of thise rule. No biggie, but it should be fixed at some time.
         else throw new NotImplementedException();
         action.AddressOfAction = address;

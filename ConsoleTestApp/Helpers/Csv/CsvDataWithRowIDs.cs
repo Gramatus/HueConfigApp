@@ -64,7 +64,7 @@ namespace ConsoleTestApp.Helpers.Csv {
       foreach (var row in rowIDs) {
         #region Iterate over all columns (e.g all headers)
         for (int col = 0; col < this.Headers.Count; col++) {
-          if (this.Columns[col].ContainsKey(row)) data += this.Columns[col][row] + ";";
+          if (this.Columns[col].ContainsKey(row)) data += "\"" + this.Columns[col][row] + "\";";
           else data += ";";
         }
         #endregion

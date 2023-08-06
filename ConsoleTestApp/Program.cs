@@ -14,8 +14,8 @@ namespace ConsoleTestApp {
   class Program {
     #region Properties and fields (and some more)
     public static readonly string userAPIroot;// = ;
-    private static readonly string serverURL = "http://192.168.1.114";
-    private static string RESTfulRoot = serverURL + userAPIroot;
+    private static readonly string serverURL = "http://192.168.50.52";
+    private static string RESTfulRoot { get { return serverURL + userAPIroot; } }
     public static Bridge hueBridge { get; private set; }
     public static int FieldLengthConfigInt { get { return 5; } }
     #endregion
@@ -48,8 +48,8 @@ namespace ConsoleTestApp {
       string backupFolder = @"C:\Users\Torgeir\Dropbox\Konfigurasjonsfiler\Backup\";
       string configFolder = @"C:\Users\Torgeir\Dropbox\Konfigurasjonsfiler\HueConfig\";
 
-      var apisToBackup = new Bridge.hueApi[] { Bridge.hueApi.scenes };
-      string[] backupFilenames = new string[] { "Scenes", "Groups" }; // "DefaultScenes"
+      var apisToBackup = new Bridge.hueApi[] { Bridge.hueApi.scenes, Bridge.hueApi.groups, Bridge.hueApi.lights };
+      string[] backupFilenames = new string[] { "Scenes", "Groups", "Lights" }; // "DefaultScenes"
       string[] scenesToBackup = new string[] { }; // { "Koselys", "Vanlig lys", "Dagslys", "Recharge" };
 
       string updateSwitchSceneDefsFile = "SwitchScenedefs.csv"; // "MyManualScenes.csv" or MyStandardScenes.csv or MyEveningScenedefs.csv, etc.
