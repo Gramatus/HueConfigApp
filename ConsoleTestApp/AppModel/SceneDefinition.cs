@@ -1,4 +1,4 @@
-﻿using ConsoleTestApp.ApiObjects.Groups;
+using ConsoleTestApp.ApiObjects.Groups;
 using ConsoleTestApp.ApiObjects.Lights;
 using ConsoleTestApp.ApiObjects.Lights.State;
 using ConsoleTestApp.ApiObjects.Scenes;
@@ -39,7 +39,7 @@ namespace ConsoleTestApp.AppModel {
     [JsonConverter(typeof(LightStateListJsonConverter))]
     public List<LightState> SpecialLightStates { get; set; }
     [JsonPropertyName("WantedGroup")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int? Group { get; set; }
     public string GroupID { get => this.Group?.ToString(); }
     [JsonPropertyName("lights")]
@@ -55,25 +55,25 @@ namespace ConsoleTestApp.AppModel {
     }
     private List<Light> _lights;
     [JsonPropertyName("Rekkefolge")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int? Order { get; set; }
     [JsonPropertyName("GroupList")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int[] GroupList { get; set; }
     [JsonPropertyName("Tving")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public bool? IgnoreIsOff { get; set; }
     [JsonPropertyName("Fadegruppe")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string FadeGroup { get; set; }
     [JsonPropertyName("StartJson")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public DateTime? InitialStartTime { get; set; }
     [JsonPropertyName("OldName")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string OldSceneName { get; set; }
     [JsonPropertyName("OldID")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string OldSceneID { get; set; }
     #endregion
     #region ### Constructors

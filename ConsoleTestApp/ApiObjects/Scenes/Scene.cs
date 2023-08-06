@@ -44,17 +44,17 @@ namespace ConsoleTestApp.ApiObjects.Scenes {
     public bool CanBeAutoRecycled { get; set; }
     /// <summary>I.e. is referenced by something.</summary>
     [JsonPropertyName("locked")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public bool? IsLocked { get; set; }
     [JsonPropertyName("type")]
     public string SceneType { get; set; }
     [JsonPropertyName("group")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string GroupID { get; set; }
     [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
     public string GroupName { get; set; }
     [JsonPropertyName("owner")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string Owner { get; set; }
     [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
     public string OwnerFriendlyAppName {
@@ -64,27 +64,27 @@ namespace ConsoleTestApp.ApiObjects.Scenes {
       }
     }
     [JsonPropertyName("image")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string ImageGuid { get; set; }
     [JsonPropertyName("lastupdated")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public DateTime? LastUpdated { get; set; }
     [JsonPropertyName("version")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int? Version { get; set; }
     /// <summary>Not really needed, as the same list of lights is also in the light states, but needed in communication with the bridge.</summary>
     [JsonPropertyName("lights")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string[] LightIDs {
       get { return Lights?.Select(i => i.LightID).ToArray(); }
       set { }
     }
     [JsonConverter(typeof(LightStateListJsonConverter))]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("lightstates")]
     public List<LightState> Lights { get; set; }
     [JsonPropertyName("appdata")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonConverter(typeof(AppDataJsonConverter))]
     public SceneAppData CustomAppData { get; set; }
     #region Not implemented properties that exists in JSON

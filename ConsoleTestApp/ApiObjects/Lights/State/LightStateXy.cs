@@ -17,7 +17,7 @@ namespace ConsoleTestApp.ApiObjects.Lights.State {
       TransitionTime = state.TransitionTime;
     }
     [JsonPropertyName("xy")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public double[] XY_position { get { return state.XY_position; } set { state.XY_position = value; } }
     [JsonPropertyName("colormode")]
     [JsonConverter(typeof(ColorModeJsonConverter))]

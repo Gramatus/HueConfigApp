@@ -21,7 +21,7 @@ namespace ConsoleTestApp.ApiObjects.Scenes {
     [JsonPropertyName("lightstates")]
     public List<LightState> Lights { get; set; }
     [JsonPropertyName("appdata")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonConverter(typeof(AppDataJsonConverter))]
     public SceneAppData CustomAppData { get; set; }
 

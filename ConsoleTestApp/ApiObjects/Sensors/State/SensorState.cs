@@ -14,7 +14,7 @@ namespace ConsoleTestApp.ApiObjects.Sensors.State {
 public class SensorState {
   [JsonPropertyName("lastupdated")]
   [JsonConverter(typeof(DateTimeWithNoneJsonConverter))]
-  [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+  [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
   public DateTime? LastUpdated { get; set; }
   [JsonExtensionData]
   public Dictionary<string, object> ExtensionData { get; set; }

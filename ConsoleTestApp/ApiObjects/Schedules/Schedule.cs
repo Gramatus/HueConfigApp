@@ -22,7 +22,7 @@ namespace ConsoleTestApp.ApiObjects.Schedules {
     [JsonPropertyName("status")]
     [JsonConverter(typeof(EnabledStateJsonConverter))]
     // 8.6.20: Changed to nullable - hopefully that won't break anything...
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public EnabledState? Status { get; set; }
     [JsonPropertyName("name")]
     public string Name { get; set; }
@@ -67,17 +67,17 @@ namespace ConsoleTestApp.ApiObjects.Schedules {
     // TODO: Add logic to handle randomized times
     protected string RandomPart { get; set; }
     [JsonPropertyName("recycle")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public bool? CanBeAutoRecycled { get; set; }
     [JsonPropertyName("autodelete")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public bool? DeleteAfterRunning { get; set; }
     [JsonPropertyName("created")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public DateTime? CreatedTime { get; set; }
     /// <summary>UTC time that the timer was started (last time it was started). Only provided for timers.</summary>
     [JsonPropertyName("starttime")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public DateTime? StartTime { get; set; }
     [JsonIgnore]
     public bool IsCreatedFromCode { get; set; }

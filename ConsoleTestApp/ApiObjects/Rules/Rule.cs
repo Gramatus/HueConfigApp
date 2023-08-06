@@ -24,7 +24,7 @@ namespace ConsoleTestApp.ApiObjects.Rules {
     [JsonPropertyName("name")]
     public string Name { get; set; }
     [JsonPropertyName("owner")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string Owner { get; set; }
     [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
     public string OwnerFriendlyAppName {
@@ -34,17 +34,17 @@ namespace ConsoleTestApp.ApiObjects.Rules {
       }
     }
     [JsonPropertyName("created")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public DateTime? Created { get; set; }
     [JsonPropertyName("lasttriggered")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonConverter(typeof(DateTimeWithNoneJsonConverter))]
     public DateTime? LastTriggered { get; set; }
     [JsonPropertyName("timestriggered")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int? TimesTriggered { get; set; }
     [JsonPropertyName("status")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string Status { get; set; }
     [JsonPropertyName("recycle")]
     public bool CanBeAutoRecycled { get; set; }

@@ -5,10 +5,10 @@ namespace ConsoleTestApp.ApiObjects.Lights
 	public class LightStreamingCapabilities
 	{
 		[JsonPropertyName("renderer")]
-		[JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+		[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 		public bool? IsRenderer { get; set; }
 		[JsonPropertyName("proxy")]
-		[JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+		[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 		public bool? IsProxy { get; set; }
 	}
 }

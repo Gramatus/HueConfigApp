@@ -10,44 +10,44 @@ namespace ConsoleTestApp.ApiObjects.Lights.State {
   public class LightStateChanger : LightState {
     /// <summary>-254 to 254</summary>
     [JsonPropertyName("bri_inc")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int? ChangeBrightness { get; set; }
     /// <summary>-254 to 254</summary>
     [JsonPropertyName("sat_inc")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int? ChangeSaturation { get; set; }
     /// <summary>-65534 to 65534</summary>
     [JsonPropertyName("hue_inc")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int? ChangeHue { get; set; }
     /// <summary>-65534 to 65534</summary>
     [JsonPropertyName("ct_inc")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int? ChangeColorTemperature { get; set; }
     /// <summary>-0.5 to 0.5</summary>
     [JsonPropertyName("xy_inc")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public double[]? ChangeXY { get; set; }
 
   }
   public class LightState : LightStateBase, ILightStateHueColor, ILightStateTemp
   {
     [JsonPropertyName("hue")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int? HueColor { get; set; }
     [JsonPropertyName("sat")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int? Saturation { get; set; }
     [JsonPropertyName("xy")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public double[] XY_position { get; set; }
     [JsonPropertyName("ct")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int? ColorTemperature { get; set; }
     private ColorMode? _colorMode;
     [JsonPropertyName("colormode")]
-    [JsonConverter(typeof(ColorModeJsonConverter))] 
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonConverter(typeof(ColorModeJsonConverter))]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public ColorMode? ColorMode {
       get { return _colorMode; }
       set { _colorMode = value; }

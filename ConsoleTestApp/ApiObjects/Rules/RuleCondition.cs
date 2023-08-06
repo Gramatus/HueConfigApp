@@ -41,7 +41,7 @@ namespace ConsoleTestApp.ApiObjects.Rules {
     [JsonConverter(typeof(RuleConditionOperatorJsonConverter))]
     public RuleConditionOperator Operator { get; set; }
     [JsonPropertyName("value")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string Value { get; set; }
     public RuleCondition() { }
     public RuleCondition(Sensor sensor) {

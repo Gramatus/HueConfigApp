@@ -1,4 +1,4 @@
-﻿using ConsoleTestApp.ApiObjects.Lights.State;
+using ConsoleTestApp.ApiObjects.Lights.State;
 using ConsoleTestApp.ApiObjects.Rules;
 using ConsoleTestApp.ApiObjects.Rules.Actions;
 using ConsoleTestApp.ApiObjects.Scenes;
@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.SymbolStore;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace ConsoleTestApp {
   class Program {

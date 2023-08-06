@@ -38,7 +38,7 @@ namespace ConsoleTestApp.ApiObjects.Sensors {
   #endregion
   #region ConvertedSensor
   /// <summary>Used when serializing/deserializing, to avoid converter loops and stack overflow
-  /// 
+  ///
   /// </summary>
   public class ConvertedSensor : Sensor {
     [JsonPropertyName("state")]
@@ -55,22 +55,22 @@ namespace ConsoleTestApp.ApiObjects.Sensors {
     [JsonPropertyName("name")]
     public string Name { get; set; }
     [JsonPropertyName("type")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string Type { get; set; }
     [JsonPropertyName("modelid")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string ModelID { get; set; }
     [JsonPropertyName("swversion")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string SW_version { get; set; }
     [JsonPropertyName("uniqueid")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string UniqueID { get; set; }
     [JsonPropertyName("manufacturername")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string ManufacturerName { get; set; }
     [JsonPropertyName("config")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public SensorConfig Config { get; set; }
     [JsonExtensionData]
     public Dictionary<string, object> ExtensionData { get; set; }

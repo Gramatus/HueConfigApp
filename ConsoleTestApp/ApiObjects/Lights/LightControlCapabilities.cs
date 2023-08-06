@@ -6,19 +6,19 @@ namespace ConsoleTestApp.ApiObjects.Lights
 	public class LightControlCapabilities
 	{
 		[JsonPropertyName("mindimlevel")]
-		[JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+		[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 		public int? MinimumDimLevel { get; set; }
 		[JsonPropertyName("maxlumen")]
-		[JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+		[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 		public int? MaximumLumen { get; set; }
 		[JsonPropertyName("colorgamuttype")]
-		[JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+		[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 		public string ColorGamutType { get; set; }
 		[JsonPropertyName("colorgamut")]
-		[JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+		[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 		public List<double[]> ColorGamut { get; set; }
 		[JsonPropertyName("ct")]
-		[JsonIgnore(Condition = JsonIgnoreCondition.WhenNull)]
+		[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 		public Dictionary<string, int> ColorTemperatureRange { get; set; }
 	}
 }
