@@ -116,7 +116,7 @@ namespace ConsoleTestApp {
       Console.WriteLine();
       Console.WriteLine();
       Console.WriteLine("---------------Done---------------");
-      Console.ReadLine();
+      // Console.ReadLine();
     }
 
     #endregion
