@@ -1,4 +1,4 @@
-using ConsoleTestApp.ApiObjects.Groups;
+﻿using ConsoleTestApp.ApiObjects.Groups;
 using ConsoleTestApp.ApiObjects.Lights;
 using ConsoleTestApp.ApiObjects.Lights.State;
 using ConsoleTestApp.ApiObjects.Scenes;
@@ -48,7 +48,10 @@ namespace ConsoleTestApp.AppModel {
       set {
         this._lights = new List<Light>();
         foreach (string id in value) {
-          if (!Program.hueBridge.Lights.ContainsKey(id)) throw new ArgumentOutOfRangeException("Scenedefintion includes light #" + id + ", which is no longer present in the bridge!");
+          if (!Program.hueBridge.Lights.ContainsKey(id)) {
+            Console.WriteLine("### Warning: Scenedefintion includes light #" + id + ", which is no longer present in the bridge!", Color.Yellow);
+            continue;
+          }
           this._lights.Add(Program.hueBridge.Lights[id]);
         }
       }
