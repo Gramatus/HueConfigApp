@@ -1,4 +1,4 @@
-using ConsoleTestApp.ApiObjects;
+﻿using ConsoleTestApp.ApiObjects;
 using ConsoleTestApp.ApiObjects.Config;
 using ConsoleTestApp.ApiObjects.Groups;
 using ConsoleTestApp.ApiObjects.Lights;
@@ -51,6 +51,10 @@ namespace ConsoleTestApp.AppModel {
       this.RESTfulRoot = RESTfulRoot;
       var logDirBase = new System.IO.DirectoryInfo(logDir);
       this._logDir = logDirBase.CreateSubdirectory(DateTime.Now.ToString("yyMMdd")).CreateSubdirectory(DateTime.Now.ToString("HHmm"));
+      this._logDir.CreateSubdirectory("GET");
+      this._logDir.CreateSubdirectory("POST");
+      this._logDir.CreateSubdirectory("PUT");
+      this._logDir.CreateSubdirectory("DELETE");
       this._createJsonOnlyOnSave = createJsonOnlyOnSave;
     }
     #endregion
@@ -396,7 +400,7 @@ namespace ConsoleTestApp.AppModel {
     public T GetFromBridge<T>(string ResourceAdress) {
       // var result = GetFromBridgeAsync<T>(ResourceAdress);
       var json = GetJsonFromBridge(ResourceAdress);
-      File.AppendAllText(this._logDir.FullName + "\\GET" + ResourceAdress.Replace('/', '_').TrimEnd('_') + ".log", this.Prettify(json));
+      File.AppendAllText(this._logDir.FullName + "\\GET\\" + ResourceAdress.Replace('/', '_').Trim('_') + ".log", this.Prettify(json));
       var result = JsonSerializer.Deserialize<T>(json);
       return result;
     }
@@ -431,7 +435,7 @@ namespace ConsoleTestApp.AppModel {
     private async Task<HttpResponseMessage> DeleteFromBridgeAsync(string resourceAddress, string resourceID) {
       if (this._createJsonOnlyOnSave) {
         string JsonThatWillBeSent = "### Sending (DELETE) (to " + resourceAddress + "): ###" + Environment.NewLine;
-        File.AppendAllText(this._logDir.FullName + "\\DELETE" + resourceAddress.Replace('/', '_').TrimEnd('_') + ".log", JsonThatWillBeSent);
+        File.AppendAllText(this._logDir.FullName + "\\DELETE\\" + resourceAddress.Replace('/', '_').Trim('_') + ".log", JsonThatWillBeSent);
         return null;
       }
       string uriToWrite = RESTfulRoot + resourceAddress + resourceID;
@@ -442,7 +446,7 @@ namespace ConsoleTestApp.AppModel {
     private void PrintJson<T>(T data, ActionMethod method, string resourceAddress, bool pauseAfterPrintingJson, bool PrintToScreen) where T : IApiObject {
       var JsonThatWillBeSent = JsonSerializer.Serialize(data, new JsonSerializerOptions() { WriteIndented = true });
       JsonThatWillBeSent = "### Sending (" + method.ToString() + ") the following Json (to " + resourceAddress + "): ###" + Environment.NewLine + JsonThatWillBeSent;
-      File.AppendAllText(this._logDir.FullName + "\\" + method.ToString() + (this._createJsonOnlyOnSave ? Regex.Replace(data.Name, "[^a-zA-Z0-9_]+", "_", RegexOptions.Compiled) : resourceAddress.Replace('/', '_').TrimEnd('_')) + ".log", JsonThatWillBeSent);
+      File.AppendAllText(this._logDir.FullName + "\\" + method.ToString() + "\\" + (this._createJsonOnlyOnSave ? Regex.Replace(data.Name, "[^a-zA-Z0-9_]+", "_", RegexOptions.Compiled) : resourceAddress.Replace('/', '_').Trim('_')) + ".log", JsonThatWillBeSent);
       if (PrintToScreen) Console.WriteLine(JsonThatWillBeSent);
       if (pauseAfterPrintingJson) {
         Console.Write("Press any key to contiune...");
