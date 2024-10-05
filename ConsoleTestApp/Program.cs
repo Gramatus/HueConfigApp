@@ -1,4 +1,4 @@
-﻿using ConsoleTestApp.ApiObjects.Lights.State;
+using ConsoleTestApp.ApiObjects.Lights.State;
 using ConsoleTestApp.ApiObjects.Rules;
 using ConsoleTestApp.ApiObjects.Rules.Actions;
 using ConsoleTestApp.ApiObjects.Scenes;
@@ -39,10 +39,10 @@ namespace ConsoleTestApp {
       #region Setup parameteres
       bool printInfo = false;
       bool printBridgeInfo = false;
-      bool pauseBeforeUpdating = false;
+      bool pauseBeforeUpdating = true;
       bool pauseBeforeDeleting = true;
       bool deleteElementsBeforeUpdatingBridge = false;
-      bool createJsonOnlyOnSave = true;
+      bool createJsonOnlyOnSave = false;
 
       string backupFolder = @"C:\Users\Torgeir\Dropbox\Konfigurasjonsfiler\Backup\";
       string configFolder = @"C:\Users\Torgeir\Dropbox\Konfigurasjonsfiler\HueConfig\";
