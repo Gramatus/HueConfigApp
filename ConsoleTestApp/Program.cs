@@ -1,4 +1,4 @@
-using ConsoleTestApp.ApiObjects.Lights.State;
+﻿using ConsoleTestApp.ApiObjects.Lights.State;
 using ConsoleTestApp.ApiObjects.Rules;
 using ConsoleTestApp.ApiObjects.Rules.Actions;
 using ConsoleTestApp.ApiObjects.Scenes;
