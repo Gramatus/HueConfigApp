@@ -46,8 +46,8 @@ namespace ConsoleTestApp {
       bool deleteElementsBeforeUpdatingBridge = false;
       bool createJsonOnlyOnSave = false;
 
-      string backupFolder = @"C:\Users\Torgeir\Dropbox\Konfigurasjonsfiler\Backup\";
-      string configFolder = @"C:\Users\Torgeir\Dropbox\Konfigurasjonsfiler\HueConfig\";
+      string backupFolder = @"C:\Users\TorgeirØsttveitStørs\Dropbox\Konfigurasjonsfiler\Backup\";
+      string configFolder = @"C:\Users\TorgeirØsttveitStørs\Dropbox\Konfigurasjonsfiler\HueConfig\";
 
       var apisToBackup = new Bridge.hueApi[] { Bridge.hueApi.scenes, Bridge.hueApi.groups, Bridge.hueApi.lights };
       string[] backupFilenames = new string[] { "Scenes", "Groups", "Lights" }; // "DefaultScenes"
