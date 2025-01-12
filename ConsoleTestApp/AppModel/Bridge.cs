@@ -449,7 +449,7 @@ namespace ConsoleTestApp.AppModel {
       File.AppendAllText(this._logDir.FullName + "\\" + method.ToString() + "\\" + (this._createJsonOnlyOnSave ? Regex.Replace(data.Name, "[^a-zA-Z0-9_]+", "_", RegexOptions.Compiled) : resourceAddress.Replace('/', '_').Trim('_')) + ".log", JsonThatWillBeSent);
       if (PrintToScreen) Console.WriteLine(JsonThatWillBeSent);
       if (pauseAfterPrintingJson) {
-        Console.Write("Press any key to contiune...");
+        Console.Write("Press any key to continue...");
         Console.ReadLine();
         Console.Write(" continuing");
         Console.WriteLine();
