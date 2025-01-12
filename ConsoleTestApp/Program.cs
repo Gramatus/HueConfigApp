@@ -1,4 +1,4 @@
-﻿using ConsoleTestApp.ApiObjects.Lights.State;
+using ConsoleTestApp.ApiObjects.Lights.State;
 using ConsoleTestApp.ApiObjects.Rules;
 using ConsoleTestApp.ApiObjects.Rules.Actions;
 using ConsoleTestApp.ApiObjects.Scenes;
@@ -28,7 +28,9 @@ namespace ConsoleTestApp {
     #endregion
     #region STATIC CONSTRUCTOR
     static Program() {
-      var key = System.IO.File.ReadAllText("apikey.txt"); // This file is not included in the repository, but it should contain the API key for the bridge. It is however stored as a a codespace secret, so it should be available when running in codespaces (and can be exported from there if needed).
+      // This file is not included in the repository, but it should contain the API key for the bridge.
+      // It is however stored as a a codespace secret, so it should be available when running in codespaces (and can be exported from there if needed).
+      var key = System.IO.File.ReadAllText("apikey.txt");
       if (!string.IsNullOrEmpty(key)) userAPIroot = "/api/" + key;
     }
     #endregion
